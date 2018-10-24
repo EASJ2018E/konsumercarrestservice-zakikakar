@@ -11,6 +11,7 @@ import axios, {
     price:number;
    }
 
+   let divElement:HTMLDivElement = <HTMLDivElement> document.getElementById("content")
    let buttonElement:HTMLButtonElement = <HTMLButtonElement> document.getElementById("getAllButton");
    buttonElement.addEventListener('click', showAllCars);
 
@@ -23,12 +24,17 @@ import axios, {
     {
         let result:string = "<ol>";
         response.data.forEach((car:ICar) => {
-            result += "<li>"+ car.model + car.vendor + car.price.toString() +"</li>"
+            result += "<li>"+ "<b> model </b> : " + car.model + "</br> <b>mærke</b> : " + car.vendor + "</br> <b>pris</b>:  " + car.price.toString() +"</li>"
         } );
 
         result += "</ol>";
 
+        divElement.innerHTML = result;
+
     }
     ) 
-    .catch()
+    .catch(function (error:AxiosError):void 
+    {
+        divElement.innerHTML = error.message;
+    })
    }
